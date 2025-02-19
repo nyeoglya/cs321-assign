@@ -1,0 +1,3 @@
+hw1.cmi :
+hw1.cmo : hw1.cmi
+hw1.cmx : hw1.cmi
