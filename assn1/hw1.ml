@@ -12,7 +12,9 @@ let rec power x n =
         else 1
 
 let rec gcd m n =
-        if m>n then gcd n (m-n)
+        if m=0 then n
+        else if n=0 then m
+        else if m>n then gcd n (m-n)
         else if m<n then gcd m (n-m)
         else m
 
@@ -30,7 +32,7 @@ let rec sum_tree t = match t with
         | Node (left, x, right) -> sum_tree left + x + sum_tree right
 
 let rec depth t = match t with
-        | Leaf _ -> 1
+        | Leaf _ -> 0
         | Node (left, x, right) ->
                 let ld = depth(left) in
                 let rd = depth(right) in
@@ -65,7 +67,7 @@ let rec list_add l1 l2 = match l1 with
 let rec insert m l = match l with
   | [] -> [m]
   | x :: l' ->
-    if x<m then m :: l
+    if x>m then m :: l
     else x :: insert m l'
         
 let rec insort l = match l with

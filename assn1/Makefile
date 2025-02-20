@@ -7,7 +7,7 @@ CAMLYACC=ocamlyacc
 YACCFLAGS=-v
 CAMLLEX=ocamllex
 
-TARGET = hw1
+TARGET = hw1.out
 OBJ = hw1.cmo
 
 all: $(OBJ)
