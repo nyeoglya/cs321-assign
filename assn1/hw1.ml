@@ -57,27 +57,28 @@ let rec max l = match l with
                 else m
 
 let rec list_add l1 l2 = match l1 with
-        | [] -> l2
-        | x :: l -> match l2 with
-                | [] -> l1
-                | y :: l' -> (x+y) :: list_add l l'
+  | [] -> l2
+  | x :: l -> match l2 with
+    | [] -> l1
+    | y :: l' -> (x+y) :: list_add l l'
 
 let rec insert m l = match l with
-        | [] -> [m]
-        | x :: l' ->
-                if x<m then m :: l
-                else x :: insert m l'
+  | [] -> [m]
+  | x :: l' ->
+    if x<m then m :: l
+    else x :: insert m l'
         
 let rec insort l = match l with
-        | [] -> []
-        | x :: l' -> insert x (insort l')
+  | [] -> []
+  | x :: l' -> insert x (insort l')
 
 
 let rec compose f g = fun x -> g (f x)
 
-let rec curry _ _ _ = raise Not_implemented (* 이거 왜 매개변수가 3개임??? 하나여야 하는거 아닌가? *)
+let rec curry f x y = f (x,y)
 
-let rec uncurry _ _ = raise Not_implemented
+let rec uncurry f arg = match arg with
+  | (x, y) -> f x y
 
 let rec multifun f n = fun x ->
         if n>1 then (multifun f (n-1)) (f x)
@@ -127,6 +128,6 @@ let rec cartprod l1 l2 = match l1 with
                         @ cartprod l1' l2
 
 let rec powerset l = match l with
-        | [] -> []
-        | x :: l' -> (x :: powerset l') @ powerset l'
+        | [] -> [[]]
+        | x :: l' -> lmap (fun y -> x :: y) (powerset l') @ powerset l'
 
