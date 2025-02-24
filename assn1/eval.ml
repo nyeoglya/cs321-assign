@@ -41,6 +41,7 @@ let _ =
     (postorder (Node (Node (Leaf 1, 3, Leaf 2), 7, Leaf 4)))=[1;2;3;4;7];
     (max [5; 3; 6; 7; 4])=7;
     (list_add [1; 2] [3; 4; 5])=[4; 6; 5];
+    (list_add [3; 4; 5] [1;2])=[4; 6; 5];
     (insert 3 [1; 2; 4; 5])=[1; 2; 3; 4; 5];
     (insort [3; 7; 5; 1; 2])=[1; 2; 3; 5; 7];
     ((compose comp_f comp_g) 7)=24;

@@ -2,7 +2,6 @@ exception Not_implemented
 
 type 'a tree = Leaf of 'a | Node of 'a tree * 'a * 'a tree
 
-(* 가능하면 전부 다 tail recursion으로 바꾸기 *)
 let rec sum n = 
         if n>0 then n + sum (n-1)
         else 0
@@ -18,13 +17,11 @@ let rec gcd m n =
         else if m<n then gcd m (n-m)
         else m
 
-(*전체 파트 다 검증하기 *)
 let rec combi n k =
         if n>1 && k>1 then combi (n-1) (k-1) + combi (n-1) (k)
-        else if n=k then 1
+        else if n=k || k=0 then 1
         else if k=1 then n
-        else if k=0 then 1
-        else 0 (* 이거 검증하기 *)
+        else 0
 
 
 let rec sum_tree t = match t with
