@@ -118,6 +118,7 @@ let rec quicksort l =
 let rec mergesort l =
   match l with
     | [] -> []
+    | [x] -> [x]
     | _ ->
         let rec split l = match l with
           | [] -> ([], [])
@@ -167,13 +168,25 @@ module Heap : HEAP =
   struct
     exception InvalidLocation
 		
-    type loc = unit       (* dummy type, to be chosen by students *)
-    type 'a heap = unit   (* dummy type, to be chosen by students *)
+    type loc = int
+    type 'a heap = Nil | Con of int * 'a * 'a heap
 
-    let empty _ = raise NotImplemented
-    let allocate _ _ = raise NotImplemented
-    let dereference _ _ = raise NotImplemented
-    let update _ _ _ = raise NotImplemented
+    let empty () = Nil
+    let allocate h v = match h with
+      | Nil -> (Con (0, v, Nil), 0)
+      | Con (pl, _, _) -> (Con (pl+1, v, h), pl+1)
+    let rec dereference h l = match h with
+      | Nil -> raise InvalidLocation
+      | Con (pl, pv, ph) ->
+          if pl>l then dereference ph l
+          else if pl=l then pv
+          else raise InvalidLocation
+    let rec update h l v = match h with
+      | Nil -> raise InvalidLocation
+      | Con (pl, pv, ph) ->
+          if pl>l then Con (pl, pv, (update ph l v))
+          else if pl=l then Con (pl, v, ph)
+          else raise InvalidLocation
   end
 
 module DictList : DICT with type key = string =
@@ -181,10 +194,22 @@ module DictList : DICT with type key = string =
     type key = string
     type 'a dict = (key * 'a) list
 		
-    let empty _ = raise NotImplemented
-    let lookup _ _ = raise NotImplemented
-    let delete _ _ = raise NotImplemented
-    let insert _ _ = raise NotImplemented
+    let empty () = []
+    let rec lookup (d: 'a dict) (k: key) = match d with
+      | [] -> None
+      | (x, i) :: d' ->
+          if x=k then Some i
+          else lookup d' k
+    let rec delete d k = match d with
+      | [] -> []
+      | (x, i) :: d' ->
+          if x=k then d'
+          else (x, i) :: delete d' k
+    let rec insert d (k, v) =
+      let dd =
+        if (lookup d k)=None then d
+        else delete d k
+      in (k, v) :: dd
   end
 
 module DictFun : DICT with type key = string =
@@ -192,8 +217,12 @@ module DictFun : DICT with type key = string =
     type key = string
     type 'a dict = key -> 'a option
 		
-    let empty _ = raise NotImplemented
-    let lookup _ _ = raise NotImplemented
-    let delete _ _ = raise NotImplemented
-    let insert _ _ = raise NotImplemented
+    let empty () = fun x -> None
+    let lookup d k = d k
+    let delete d k = fun x ->
+      if x=k then None
+      else d k
+    let insert d (k, v) = fun x ->
+      if x=k then Some v
+      else d k
   end
