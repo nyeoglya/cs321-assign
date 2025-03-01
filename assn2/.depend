@@ -1,0 +1,3 @@
+hw2.cmi :
+hw2.cmo : hw2.cmi
+hw2.cmx : hw2.cmi
