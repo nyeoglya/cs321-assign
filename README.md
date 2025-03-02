@@ -1,6 +1,6 @@
 # cs321-assign
 
-[![OCaml](https://img.shields.io/badge/OCaml-EC6813?logo=ocaml&labelColor=white)](#)
+[![OCaml](https://img.shields.io/badge/OCaml-EC6813?logo=ocaml&labelColor=white)]
 
 **csed-321 assignment directory by *hyunseong*, POSTECH 24**
 
