@@ -13,9 +13,12 @@ let rec lrevrev l =
       | [] -> []
       | x :: l' -> (lrevrev l') @ [lrev x]
 
-let rec lfoldl f e l = match l with
-  | [] -> e
-  | x :: l' -> f (x, (lfoldl f e l'))
+let rec lfoldl f e l =
+  let rec lfoldl_aux f l acc =
+    match l with
+      | [] -> acc
+      | x :: l' -> lfoldl_aux f l' (f (x, acc))
+  in lfoldl_aux f l e
 
 (** Tail recursive functions **)
 
