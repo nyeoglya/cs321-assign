@@ -224,8 +224,8 @@ module DictFun : DICT with type key = string =
     let lookup d k = d k
     let delete d k = fun x ->
       if x=k then None
-      else d k
+      else d x
     let insert d (k, v) = fun x ->
       if x=k then Some v
-      else d k
+      else d x
   end
