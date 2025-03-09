@@ -1,0 +1,6 @@
+hw1.cmi :
+hw3.cmi : common.cmo
+common.cmo :
+common.cmx :
+hw3.cmo : common.cmo hw3.cmi
+hw3.cmx : common.cmx hw3.cmi
