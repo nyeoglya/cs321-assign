@@ -119,7 +119,7 @@ struct
                   else raise MatrixIllegal
         in create_rec l rn rn
   let identity n =
-    if n<0 then raise MatrixIllegal
+    if n<=0 then raise MatrixIllegal
     else
       let rec cz k l =
         if k>0 then Scal.zero :: cz (k-1) l
@@ -132,22 +132,16 @@ struct
   let dim m = match m with
     | [] -> raise MatrixIllegal
     | x :: _ -> Vec.dim x
-  let transpose (m: Vec.t list) =
-    let rec cfr mh = match mh with
+  let transpose (m: t) =
+    let d = dim m in
+    let rec gmk mh k = match mh with
       | [] -> []
-      | l :: mh' -> match (Vec.to_list l) with
-        | [] -> []
-        | x :: _ -> x :: cfr mh'
+      | l :: mh' -> (Vec.nth l k) :: gmk mh' k
     in
-    let rec crr mh = match mh with
-      | [] -> []
-      | l :: mh' -> match (Vec.to_list l) with
-        | [] -> []
-        | _ :: l' -> (Vec.create l') :: crr mh'
-    in
-    let rec tran_rec mh =
-      Vec.create (cfr mh) :: tran_rec (crr mh)
-    in tran_rec m
+    let rec tran_rec mh k =
+      if k>0 then Vec.create (gmk mh (d-k)) :: tran_rec mh (k-1)
+      else []
+    in tran_rec m d
   let rec to_list m = match m with
     | [] -> []
     | l :: m' -> (Vec.to_list l) :: to_list m'
@@ -173,8 +167,14 @@ struct
   let ( ** ) m1 m2 =
     if dim m1 != dim m2 then raise MatrixIllegal
     else
-      raise MatrixIllegal (* 이거 다시 만들기. 잘못 만들었음... *)
-      (* in mul_rec (transpose m1) m2*)
+      let rec mul_vm v m = match m with
+        | [] -> []
+        | x :: m' -> (Vec.innerp v x) :: mul_vm v m'
+      in
+      let rec mul_mm mh1 mh2 = match mh1 with
+        | [] -> []
+        | v :: mh1' -> Vec.create (mul_vm v mh2) :: mul_mm mh1' mh2
+      in mul_mm m1 (transpose m2)
   let (==) m1 m2 =
     if dim m1 != dim m2 then raise MatrixIllegal
     else
@@ -195,7 +195,13 @@ sig
 end
 =
 struct
-  let closure _ = raise NotImplemented
+  let closure m =
+    let i = Mat.identity (Mat.dim m) in
+    let rec closure_acc ma =
+      let mm = Mat.(i ++ (ma ** m)) in
+        if ma=mm then ma
+        else closure_acc mm
+    in closure_acc m
 end
 
 (* Problem 2-2 *)
@@ -204,7 +210,12 @@ end
 module BoolMat = MatrixFn (Boolean)
 module BoolMatClosure = ClosureFn (BoolMat)
 
-let reach _ = raise NotImplemented
+let reach l =
+  try
+    let m = BoolMat.create l in
+    let mt = BoolMatClosure.closure m in
+    BoolMat.to_list mt
+  with e -> raise IllegalFormat
 
 let al = 
   [[true;  false; false; false; false; false];
@@ -222,6 +233,7 @@ let solution_al' =
    [false; true;  true;  true;  true;  true];
    [false; true;  true;  true;  true;  true]]
 
+
 module Distance : SCALAR with type t = int
 =
 struct
@@ -229,17 +241,27 @@ struct
 
   exception ScalarIllegal
 
-  let zero = 999999              (* Dummy value : Rewrite it! *)
-  let one = 999999               (* Dummy value : Rewrite it! *)
+  let zero = -1
+  let one = 0
 
-  let (++) _ _ = raise NotImplemented
-  let ( ** ) _ _ = raise NotImplemented
-  let (==) _ _ = raise NotImplemented
+  let (++) d1 d2 = if d1=zero then d2
+    else if d2=zero then d1
+    else if d1>d2 then d2 else d1
+  let ( ** ) d1 d2 = if d1=zero then zero
+    else if d2=zero then zero
+    else d1+d2
+  let (==) d1 d2 = d1 = d2
 end
 
 (* .. Write some code here .. *)
+module DM = MatrixFn (Distance)
+module DMC = ClosureFn (DM)
 
-let distance _ = raise NotImplemented
+let distance l = try
+    let m = DM.create l in
+    let mt = DMC.closure m in
+    DM.to_list mt
+  with e -> raise IllegalFormat
 
 let dl =
   [[  0;  -1;  -1;  -1;  -1;  -1 ];
@@ -264,17 +286,27 @@ struct
 
   exception ScalarIllegal
 
-  let zero = 999999              (* Dummy value : Rewrite it! *)
-  let one = 999999               (* Dummy value : Rewrite it! *)
+  let zero = 0
+  let one = -1
  
-  let (++) _ _ = raise NotImplemented
-  let ( ** ) _ _ = raise NotImplemented
-  let (==) _ _ = raise NotImplemented
+  let (++) w1 w2 = if w1=one then one
+    else if w2=one then one
+    else if w1>w2 then w1 else w2
+  let ( ** ) w1 w2 = if w1=one then w2
+    else if w2=one then w1
+    else if w1>w2 then w2 else w1
+  let (==) w1 w2 = w1 = w2
 end
 
 (* .. Write some code here .. *)
+module WM = MatrixFn (Weight)
+module WMC = ClosureFn (WM)
 
-let weight _ = raise NotImplemented
+let weight l = try
+    let m = WM.create l in
+    let mt = WMC.closure m in
+    WM.to_list mt
+  with e -> raise IllegalFormat
 
 let ml =
   [[-1; 0  ; 0  ; 0  ; 0  ; 0   ];
