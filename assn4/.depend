@@ -1,0 +1,11 @@
+eval.cmi : uml.cmo
+eval.cmo : eval.cmi
+eval.cmx : eval.cmi
+hw4.cmo : loop.cmo
+hw4.cmx : loop.cmx
+inout.cmo : uml.cmo
+inout.cmx : uml.cmx
+loop.cmo : uml.cmo inout.cmo eval.cmi
+loop.cmx : uml.cmx inout.cmx eval.cmx
+uml.cmo :
+uml.cmx :

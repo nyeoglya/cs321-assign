@@ -1,0 +1,9 @@
+let zero = lam s. lam z. z in
+let one = lam s. lam z. s z in
+let add = lam x. lam y. lam s. lam z. y s (x s z) in 
+let two = add one one in
+let four = add two two in
+let eight = add four four in
+eight
+;
+

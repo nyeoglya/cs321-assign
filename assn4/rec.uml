@@ -1,0 +1,9 @@
+let tt = lam t. lam f. t in
+let ff = lam t. lam f. f in
+let id = lam x. x in 
+let G = lam g. lam x. x (lam z. g ff id) (lam z. ff) in
+let fix = lam F. (lam f. F (lam x. f f x)) (lam f. F (lam x. f f x)) in
+let f = fix G in
+f tt id;
+
+

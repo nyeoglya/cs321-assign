@@ -1,0 +1,27 @@
+let tt = lam t. lam f. t in
+let ff = lam t. lam f. f in
+let and = lam x. lam y. x y ff in
+let or = lam x. lam y. x tt y in
+let zero = lam s. lam z. z in
+let one = lam s. lam z. s z in
+let two = lam s. lam z. s (s z) in
+let five = lam s. lam z. s (s (s (s (s z)))) in
+let add = lam x. lam y. lam s. lam z. x s (y s z) in
+let pair = lam x. lam y. lam b. b x y in
+let fst = lam p. p tt in
+let snd = lam p. p ff in
+let next = lam p. pair (snd p) (add (snd p) one) in
+let pred = lam x. fst (x next (pair zero zero)) in
+let sub = lam x. lam y. (y pred) x in
+let isZero = lam x. x (lam y. ff) tt in
+let eq = lam x. lam y. and (isZero (x pred y)) (isZero (y pred x)) in
+let fix = lam F. (lam f. F (lam x. f f x)) (lam f. F (lam x. f f x)) in
+let FIB = lam f. lam n. (or (eq n zero) (eq n one)) (lam z. one) (lam z. (add (f (sub n one) z) (f (sub n two) z))) in
+let fib = fix FIB in
+let three = add one two in
+let eight = add five three in
+let seven = add five two in 
+let fibFive = fib five tt in
+let not = lam t. t ff tt in 
+and (eq eight fibFive) (not (eq seven fibFive)); 
+
