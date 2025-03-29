@@ -8,7 +8,7 @@ YACCFLAGS=-v
 CAMLLEX=ocamllex
 
 PARSER = parser.ml parser.mli lexer.ml
-TARGET = hw4
+TARGET = hw4.out
 OBJ = uml.cmo parser.cmo lexer.cmo inout.cmo eval.cmo loop.cmo
 
 all: $(OBJ) hw4.cmo 
