@@ -13,7 +13,7 @@ OBJ = uml.cmo parser.cmo lexer.cmo inout.cmo eval.cmo loop.cmo
 
 all: $(OBJ) hw4.cmo 
 	$(CAMLC) -o lib.cma -a $(OBJ)
-	$(CAMLC) -o hw4 lib.cma hw4.cmo 
+	$(CAMLC) -o $(TARGET) lib.cma hw4.cmo 
 
 clean:
 	rm -f $(TARGET) $(PARSER) *.annot *.aux *.log *.cm[ioxa] *.dvi *~ .*~ #*# 
