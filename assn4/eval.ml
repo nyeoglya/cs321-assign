@@ -18,7 +18,56 @@ let getFreshVariable s =
 (*
  * implement a single step with reduction using the call-by-value strategy.
  *)
-let rec stepv e = raise NotImplemented         
+
+open Uml
+
+module ListFun =
+  struct
+    type value = var
+
+    let create v = fun x ->
+      if x=v then true 
+      else false
+    let lookup l v = l v
+    let delete l v = fun x ->
+      if x=v then false
+      else l x
+    let concat l1 l2 = fun x ->
+      l1 x || l2 x
+end
+
+let rec rename (e: exp) (x: var) (y: var) = match e with
+  | Var v -> if v=x then Var y else e
+  | Lam (v, e') ->
+      if v=x then Lam (y, rename e' x y)
+      else Lam (v, rename e' x y)
+  | App (e1, e2) -> App (rename e1 x y, rename e2 x y)
+
+let rec fv (e: exp) = match e with
+  | Var v -> ListFun.create v
+  | Lam (v, e') -> ListFun.delete (fv e') v
+  | App (e1, e2) -> ListFun.concat (fv e1) (fv e2)
+
+let rec sub (e: exp) (x: var) (e': exp) = match e with
+  | Var v ->
+    if v=x then e' else e
+  | App (e1, e2) -> App (sub e1 x e', sub e2 x e')
+  | Lam (v, e1) ->
+    if v=x then e
+    else
+      if (ListFun.lookup (fv e') v)=false then Lam (v, sub e1 x e')
+      else let v' = getFreshVariable v in
+        Lam (v', sub (rename e1 v v') x e')
+
+let rec stepv (e: exp) = match e with
+  | Var _ -> raise Stuck
+  | Lam (v, e') -> Lam (v, stepv e')
+  | App (e1, e2) -> match e1 with
+    | Var _ -> raise Stuck
+    | App (_, _) -> App (stepv e1, e2)
+    | Lam (v1, e1') -> match e2 with
+        | App (_, _) -> App (e1, stepv e2)
+        | _ -> sub e1' v1 e2
 
 let stepOpt stepf e = try Some (stepf e) with Stuck -> None
 
