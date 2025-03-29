@@ -36,12 +36,16 @@ module ListFun =
       l1 x || l2 x
 end
 
-let rec rename (e: exp) (x: var) (y: var) = match e with
-  | Var v -> if v=x then Var y else e
+let rec swap (e: exp) (x: var) (y: var) = match e with
+  | Var v ->
+      if v=x then Var y
+      else if v=y then Var x
+      else e
   | Lam (v, e') ->
-      if v=x then Lam (y, rename e' x y)
-      else Lam (v, rename e' x y)
-  | App (e1, e2) -> App (rename e1 x y, rename e2 x y)
+      if v=x then Lam (y, swap e' x y)
+      else if v=y then Lam (x, swap e' x y)
+      else Lam (v, swap e' x y)
+  | App (e1, e2) -> App (swap e1 x y, swap e2 x y)
 
 let rec fv (e: exp) = match e with
   | Var v -> ListFun.create v
@@ -57,17 +61,18 @@ let rec sub (e: exp) (x: var) (e': exp) = match e with
     else
       if (ListFun.lookup (fv e') v)=false then Lam (v, sub e1 x e')
       else let v' = getFreshVariable v in
-        Lam (v', sub (rename e1 v v') x e')
+        Lam (v', sub (swap e1 v v') x e')
 
 let rec stepv (e: exp) = match e with
   | Var _ -> raise Stuck
-  | Lam (v, e') -> Lam (v, stepv e')
+  | Lam (v, e') -> raise Stuck
   | App (e1, e2) -> match e1 with
     | Var _ -> raise Stuck
     | App (_, _) -> App (stepv e1, e2)
     | Lam (v1, e1') -> match e2 with
+        | Var _ -> App (e1, stepv e2)
         | App (_, _) -> App (e1, stepv e2)
-        | _ -> sub e1' v1 e2
+        | Lam (_, _) -> sub e1' v1 e2
 
 let stepOpt stepf e = try Some (stepf e) with Stuck -> None
 
