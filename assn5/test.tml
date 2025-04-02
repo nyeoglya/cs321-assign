@@ -1,0 +1,26 @@
+fst (1, true); 
+
+case inl (int) 10 of inl a => + (a, 5) | inr b => - (b, 5);
+
+(fn x : unit + unit => case x of inl a => true | inr a => false) (inl (unit) ());
+
+let f : int -> int = fn x : int => x in f;
+
+let rec sum : int -> int = fn x : int => if (= (x, 1)) then 1 else + (x, sum (- (x, 1))) in sum 10;
+
+let or : bool -> bool -> bool = fn x : bool => fn y : bool => if x then true else y in
+let add : int -> int -> int = fn x : int => fn y : int => + (x, y) in
+let sub : int -> int -> int = fn x : int => fn y : int => - (x, y) in
+let rec fib : int -> int = fn x : int => if or (= (x, 0)) (= (x, 1)) then 1 else add (fib (sub x 1)) (fib (sub x 2)) in
+fib 10;
+
+let rec evenOdd : ((int -> bool) * (int -> bool)) = 
+(fn x : int => if (= (x, 0)) then true else ((snd evenOdd) (- (x, 1))), fn x : int => if (= (x, 0)) then false else ((fst evenOdd) (- (x, 1)))) in
+(fst evenOdd) 18;
+
++ inl (int) false;
+
+fix f : int -> int => fn n : bool => 3;
+
+case inl (bool) 3 of inl a => + (a, 1) | inr b => b;
+

@@ -1,0 +1,13 @@
+typing.cmi : tml.cmo
+eval.cmo :
+eval.cmx :
+hw5.cmo : loop.cmo
+hw5.cmx : loop.cmx
+inout.cmo : typing.cmi tml.cmo
+inout.cmx : typing.cmx tml.cmx
+loop.cmo : tml.cmo inout.cmo eval.cmo
+loop.cmx : tml.cmx inout.cmx eval.cmx
+tml.cmo :
+tml.cmx :
+typing.cmo : tml.cmo typing.cmi
+typing.cmx : tml.cmx typing.cmi
