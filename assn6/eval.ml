@@ -389,58 +389,10 @@ let rec exp2string exp = match exp with
 
 (* state2string : state -> string
  * you may modify this function for debugging your code *)
-let value2string v = match v with
-  | Vlam(e,env) -> (exp2string e)
-  | Vpair(e1,e2,_) -> "Pair(" ^ (exp2string e1) ^"," ^ (exp2string e2) ^ ")"
-  | Vinl (e,_) -> "Inl(" ^ (exp2string e) ^ ")"
-  | Vinr (e,_) -> "Inr(" ^ (exp2string e) ^ ")"
-  | Vunit -> "Unit"
-  | Vtrue -> "True"
-  | Vfalse -> "False"
-  | Vnum n -> "Num " ^ (string_of_int n)
-  | Vplus -> "+"
-  | Vminus -> "-"
-  | Veq -> "="
-
-let env2string h env =
-  let rec env2string' h env n str = match env with
-      [] -> str ^ "]"
-    | e :: env' -> let str' = str ^ (string_of_int n) ^ " -> " in
-                   let result = match (Heap.deref h e) with
-                       Computed v -> str' ^ "Computed(" ^ (value2string v) ^ ") "
-                     | Delayed (e', env) -> str' ^ "Delayed(" ^ (exp2string e') ^ ") "
-                   in env2string' h env' (n+1) result
-  in env2string' h env 0 ""
-
-let frame2string f =
-  let rec frame2string' f str = match f with
-    | FInd l -> "[" ^ (string_of_int l) ^ "];"
-    | FApp (e, _) -> "hole " ^ (exp2string e) ^ ";"
-    | FFst -> "Fst;"
-    | FSnd -> "Snd;"
-    | FPlus -> "Plus_FR;"
-    | FPlusP (e, _) -> "Plus_Exp " ^ (exp2string e) ^ ";"
-    | FPlusPP v -> "PlusVal"
-    | _ -> " not implement"
-  in frame2string' f ""
-
-let sk2string sk =
-  let rec sk2string' sk str = match sk with
-    | Hole_SK -> str ^ "]"
-    | Frame_SK (sk', f) -> sk2string' sk' ((frame2string f) ^ " " ^ str)
-  in sk2string' sk ""
-
-let heap2string h =
-  let rec heap2string' h str = match h with
-    | [] -> str ^ "]"
-    | l::h'-> heap2string' h' (str ^ (match l with (l', _) -> string_of_int l'))
-  in heap2string' h ""
-
 let state2string st = match st with
-  | Anal_ST (h, sk, exp, env) -> "\nAnalysis : " ^ (exp2string exp) ^ "\nEnv : [" ^ (env2string h env) ^ "\nHeap : [" ^ (heap2string h) ^ " ; Stack : [" ^ (sk2string sk)
-  | Return_ST(h,_, Vlam (exp,env)) -> "Return : CLO(" ^ (exp2string exp) ^ ", [" ^ (env2string h env) ^ ")"
-  | Return_ST(h,_,v) -> "Return : " ^ (value2string v)
-
+    Anal_ST(_,_,exp,_) -> "Analysis : ???"
+  | Return_ST(_,_,_) -> "Return : ??? 
+  "
 (* ------------------------------------------------------------- *)
 let stepOpt1 e = try Some (step1 e) with Stuck -> None
 let stepOpt2 st = try Some (step2 st) with Stuck -> None
