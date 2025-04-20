@@ -1,0 +1,13 @@
+eval.cmi : tml.cmo heap.cmo
+eval.cmo : tml.cmo heap.cmo eval.cmi
+eval.cmx : tml.cmx heap.cmx eval.cmi
+heap.cmo :
+heap.cmx :
+hw6.cmo : loop.cmo
+hw6.cmx : loop.cmx
+inout.cmo : tml.cmo
+inout.cmx : tml.cmx
+loop.cmo : tml.cmo inout.cmo heap.cmo eval.cmi
+loop.cmx : tml.cmx inout.cmx heap.cmx eval.cmx
+tml.cmo :
+tml.cmx :
