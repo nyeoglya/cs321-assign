@@ -1,0 +1,13 @@
+datatype list = Nil | Cons of (int * list);
+
+val rec append =
+  fn Nil => (fn x => Cons (x, Nil))
+   | Cons (h, t) => (fn x => Cons (h, append t x));
+
+val rec reverse =
+  fn Nil => Nil
+   | Cons (h, t) => append (reverse t) h;
+
+val l = Cons (1, Cons (2, Nil));
+
+reverse l;;

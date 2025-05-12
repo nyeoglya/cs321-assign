@@ -1,0 +1,35 @@
+mach.cmi :
+ast.cmo :
+ast.cmx :
+ast_print.cmo : ast.cmo
+ast_print.cmx : ast.cmx
+ast_valid.cmo : set_type.cmo ast.cmo
+ast_valid.cmx : set_type.cmx ast.cmx
+core.cmo : ast.cmo
+core.cmx : ast.cmx
+core_print.cmo : core.cmo
+core_print.cmx : core.cmx
+dict.cmo : set_type.cmo
+dict.cmx : set_type.cmx
+hw7.cmo : test.cmo
+hw7.cmx : test.cmx
+inout.cmo :
+inout.cmx :
+mach.cmo : dict.cmo mach.cmi
+mach.cmx : dict.cmx mach.cmi
+mono.cmo : ast.cmo
+mono.cmx : ast.cmx
+mono_print.cmo : mono.cmo
+mono_print.cmx : mono.cmx
+monomorphise.cmo : set_type.cmo mono.cmo dict.cmo core.cmo
+monomorphise.cmx : set_type.cmx mono.cmx dict.cmx core.cmx
+set_type.cmo :
+set_type.cmx :
+test.cmo : translate.cmo monomorphise.cmo mono_print.cmo mono.cmo mach.cmi \
+    inout.cmo core_print.cmo ast_valid.cmo ast_print.cmo
+test.cmx : translate.cmx monomorphise.cmx mono_print.cmx mono.cmx mach.cmx \
+    inout.cmx core_print.cmx ast_valid.cmx ast_print.cmx
+translate.cmo : mono.cmo mach.cmi dict.cmo
+translate.cmx : mono.cmx mach.cmx dict.cmx
+typing_stub.cmo :
+typing_stub.cmx :

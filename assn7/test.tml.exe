@@ -1,0 +1,788 @@
+Machine code:
+conf_func:
+	malloc AX <- 2
+	move (AX + 1) <- R[27]
+	move (AX + 0) <- R[28]
+	return
+when_error:
+	exception
+_Start_CSE_321_HW7_:
+3:
+	malloc R[29] <- 2
+	move (R[29] + 0) <- &4
+	push R[29]
+	malloc (R[29] + 1) <- 1
+	move R[28] <- *(R[29] + 1)
+	move (R[28] + 0) <- *(BP + 0)
+	jump &38
+4:
+	push R[27]
+	push *(R[28] + 0)
+5:
+pat_vid7:
+	move R[25] <- *(BP + 0)
+	move R[25] <- *(R[25] + 0)
+	jmpneqstr &6, (R[25], "Nil")
+8:
+	malloc R[29] <- 2
+	move (R[29] + 0) <- &9
+	push R[29]
+	jump &17
+9:
+	push R[27]
+10:
+pat_var12:
+13:
+14:
+	malloc R[29] <- 2
+	move (R[29] + 1) <- "Cons"
+	move (R[29] + 0) <- &conf_func
+	push R[29]
+	move AX <- R[29]
+15:
+15:
+	move AX <- *(BP + 0)
+15:
+	malloc R[29] <- 1
+	move (R[29] + 0) <- "Nil"
+	push R[29]
+	move AX <- R[29]
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 0)
+	move (AX + 1) <- *(BP + 2)
+	push AX
+	move R[29] <- *(BP + 1)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 3)
+	call *(R[29] + 0)
+	push AX
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+17:
+	move AX <- *(BP + 2)
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+6:
+pat_vidp19:
+	move R[25] <- *(BP + 0)
+	move R[25] <- *(R[25] + 0)
+	jmpneqstr &when_error, (R[25], "Cons")
+pat_pair20:
+	move TR <- *(BP + 0)
+pat_var21:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+pat_var22:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+23:
+	malloc R[29] <- 2
+	move (R[29] + 0) <- &24
+	push R[29]
+	malloc (R[29] + 1) <- 3
+	move R[28] <- *(R[29] + 1)
+	move (R[28] + 0) <- *(TR + 0)
+	move (R[28] + 1) <- *(BP + 1)
+	move (R[28] + 2) <- *(TR + 1)
+	jump &36
+24:
+	push R[27]
+	push *(R[28] + 0)
+	push *(R[28] + 1)
+	push *(R[28] + 2)
+25:
+pat_var27:
+28:
+29:
+	malloc R[29] <- 2
+	move (R[29] + 1) <- "Cons"
+	move (R[29] + 0) <- &conf_func
+	push R[29]
+	move AX <- R[29]
+30:
+30:
+	move AX <- *(BP + 1)
+30:
+31:
+32:
+	move AX <- *(BP + 2)
+33:
+	move AX <- *(BP + 3)
+	move R[29] <- *(BP + 2)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 3)
+	call *(R[29] + 0)
+	push AX
+34:
+	move AX <- *(BP + 0)
+	move R[29] <- *(BP + 5)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 0)
+	call *(R[29] + 0)
+	push AX
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 1)
+	move (AX + 1) <- *(BP + 6)
+	push AX
+	move R[29] <- *(BP + 4)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 7)
+	call *(R[29] + 0)
+	push AX
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+36:
+	move AX <- *(BP + 2)
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+38:
+	move AX <- *(BP + 0)
+pat_var39:
+41:
+	malloc R[29] <- 2
+	move (R[29] + 0) <- &42
+	push R[29]
+	malloc (R[29] + 1) <- 2
+	move R[28] <- *(R[29] + 1)
+	move (R[28] + 0) <- *(BP + 0)
+	move (R[28] + 1) <- *(BP + 1)
+	jump &60
+42:
+	push R[27]
+	push *(R[28] + 0)
+	push *(R[28] + 1)
+43:
+pat_vid45:
+	move R[25] <- *(BP + 0)
+	move R[25] <- *(R[25] + 0)
+	jmpneqstr &44, (R[25], "Nil")
+46:
+	malloc R[29] <- 1
+	move (R[29] + 0) <- "Nil"
+	push R[29]
+	move AX <- R[29]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+44:
+pat_vidp48:
+	move R[25] <- *(BP + 0)
+	move R[25] <- *(R[25] + 0)
+	jmpneqstr &when_error, (R[25], "Cons")
+pat_pair49:
+	move TR <- *(BP + 0)
+pat_var50:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+pat_var51:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+52:
+53:
+54:
+	move AX <- *(BP + 1)
+55:
+56:
+	move AX <- *(BP + 2)
+57:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+	move AX <- *(TR + 1)
+	move R[29] <- *(BP + 2)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(TR + 1)
+	call *(R[29] + 0)
+	push AX
+	move R[29] <- *(BP + 1)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 3)
+	call *(R[29] + 0)
+	push AX
+58:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+	move AX <- *(TR + 0)
+	move R[29] <- *(BP + 4)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(TR + 0)
+	call *(R[29] + 0)
+	push AX
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+60:
+	move AX <- *(BP + 1)
+pat_var61:
+63:
+64:
+	malloc R[29] <- 2
+	move (R[29] + 1) <- "Cons"
+	move (R[29] + 0) <- &conf_func
+	push R[29]
+	move AX <- R[29]
+65:
+65:
+	malloc AX <- 1
+	move (AX + 0) <- 1
+	push AX
+65:
+66:
+	malloc R[29] <- 2
+	move (R[29] + 1) <- "Cons"
+	move (R[29] + 0) <- &conf_func
+	push R[29]
+	move AX <- R[29]
+67:
+67:
+	malloc AX <- 1
+	move (AX + 0) <- 2
+	push AX
+67:
+	malloc R[29] <- 1
+	move (R[29] + 0) <- "Nil"
+	push R[29]
+	move AX <- R[29]
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 5)
+	move (AX + 1) <- *(BP + 6)
+	push AX
+	move R[29] <- *(BP + 4)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 7)
+	call *(R[29] + 0)
+	push AX
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 3)
+	move (AX + 1) <- *(BP + 8)
+	push AX
+	move R[29] <- *(BP + 2)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 9)
+	call *(R[29] + 0)
+	push AX
+pat_var68:
+69:
+70:
+	move AX <- *(BP + 1)
+71:
+	move AX <- *(BP + 10)
+	move R[29] <- *(BP + 1)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 10)
+	call *(R[29] + 0)
+	push AX
+	halt AX
+
+
+Execution begins at 7:
+7   _Start_CSE_321_HW7_:
+8   3:
+9   	malloc R[29] <- 2
+10   	move (R[29] + 0) <- &4
+11   	push R[29]
+12   	malloc (R[29] + 1) <- 1
+13   	move R[28] <- *(R[29] + 1)
+14   	move (R[28] + 0) <- *(BP + 0)
+15   	jump &38
+152   38:
+153   	move AX <- *(BP + 0)
+154   pat_var39:
+155   41:
+156   	malloc R[29] <- 2
+157   	move (R[29] + 0) <- &42
+158   	push R[29]
+159   	malloc (R[29] + 1) <- 2
+160   	move R[28] <- *(R[29] + 1)
+161   	move (R[28] + 0) <- *(BP + 0)
+162   	move (R[28] + 1) <- *(BP + 1)
+163   	jump &60
+233   60:
+234   	move AX <- *(BP + 1)
+235   pat_var61:
+236   63:
+237   64:
+238   	malloc R[29] <- 2
+239   	move (R[29] + 1) <- "Cons"
+240   	move (R[29] + 0) <- &conf_func
+241   	push R[29]
+242   	move AX <- R[29]
+243   65:
+244   65:
+245   	malloc AX <- 1
+246   	move (AX + 0) <- 1
+247   	push AX
+248   65:
+249   66:
+250   	malloc R[29] <- 2
+251   	move (R[29] + 1) <- "Cons"
+252   	move (R[29] + 0) <- &conf_func
+253   	push R[29]
+254   	move AX <- R[29]
+255   67:
+256   67:
+257   	malloc AX <- 1
+258   	move (AX + 0) <- 2
+259   	push AX
+260   67:
+261   	malloc R[29] <- 1
+262   	move (R[29] + 0) <- "Nil"
+263   	push R[29]
+264   	move AX <- R[29]
+265   	malloc AX <- 2
+266   	move (AX + 0) <- *(BP + 5)
+267   	move (AX + 1) <- *(BP + 6)
+268   	push AX
+269   	move R[29] <- *(BP + 4)
+270   	move R[28] <- *(R[29] + 1)
+271   	move R[27] <- *(BP + 7)
+272   	call *(R[29] + 0)
+0   conf_func:
+1   	malloc AX <- 2
+2   	move (AX + 1) <- R[27]
+3   	move (AX + 0) <- R[28]
+4   	return
+273   	push AX
+274   	malloc AX <- 2
+275   	move (AX + 0) <- *(BP + 3)
+276   	move (AX + 1) <- *(BP + 8)
+277   	push AX
+278   	move R[29] <- *(BP + 2)
+279   	move R[28] <- *(R[29] + 1)
+280   	move R[27] <- *(BP + 9)
+281   	call *(R[29] + 0)
+0   conf_func:
+1   	malloc AX <- 2
+2   	move (AX + 1) <- R[27]
+3   	move (AX + 0) <- R[28]
+4   	return
+282   	push AX
+283   pat_var68:
+284   69:
+285   70:
+286   	move AX <- *(BP + 1)
+287   71:
+288   	move AX <- *(BP + 10)
+289   	move R[29] <- *(BP + 1)
+290   	move R[28] <- *(R[29] + 1)
+291   	move R[27] <- *(BP + 10)
+292   	call *(R[29] + 0)
+164   42:
+165   	push R[27]
+166   	push *(R[28] + 0)
+167   	push *(R[28] + 1)
+168   43:
+169   pat_vid45:
+170   	move R[25] <- *(BP + 0)
+171   	move R[25] <- *(R[25] + 0)
+172   	jmpneqstr &44, (R[25], "Nil")
+183   44:
+184   pat_vidp48:
+185   	move R[25] <- *(BP + 0)
+186   	move R[25] <- *(R[25] + 0)
+187   	jmpneqstr &when_error, (R[25], "Cons")
+188   pat_pair49:
+189   	move TR <- *(BP + 0)
+190   pat_var50:
+191   	move TR <- *(BP + 0)
+192   	move TR <- *(TR + 1)
+193   pat_var51:
+194   	move TR <- *(BP + 0)
+195   	move TR <- *(TR + 1)
+196   52:
+197   53:
+198   54:
+199   	move AX <- *(BP + 1)
+200   55:
+201   56:
+202   	move AX <- *(BP + 2)
+203   57:
+204   	move TR <- *(BP + 0)
+205   	move TR <- *(TR + 1)
+206   	move AX <- *(TR + 1)
+207   	move R[29] <- *(BP + 2)
+208   	move R[28] <- *(R[29] + 1)
+209   	move R[27] <- *(TR + 1)
+210   	call *(R[29] + 0)
+164   42:
+165   	push R[27]
+166   	push *(R[28] + 0)
+167   	push *(R[28] + 1)
+168   43:
+169   pat_vid45:
+170   	move R[25] <- *(BP + 0)
+171   	move R[25] <- *(R[25] + 0)
+172   	jmpneqstr &44, (R[25], "Nil")
+183   44:
+184   pat_vidp48:
+185   	move R[25] <- *(BP + 0)
+186   	move R[25] <- *(R[25] + 0)
+187   	jmpneqstr &when_error, (R[25], "Cons")
+188   pat_pair49:
+189   	move TR <- *(BP + 0)
+190   pat_var50:
+191   	move TR <- *(BP + 0)
+192   	move TR <- *(TR + 1)
+193   pat_var51:
+194   	move TR <- *(BP + 0)
+195   	move TR <- *(TR + 1)
+196   52:
+197   53:
+198   54:
+199   	move AX <- *(BP + 1)
+200   55:
+201   56:
+202   	move AX <- *(BP + 2)
+203   57:
+204   	move TR <- *(BP + 0)
+205   	move TR <- *(TR + 1)
+206   	move AX <- *(TR + 1)
+207   	move R[29] <- *(BP + 2)
+208   	move R[28] <- *(R[29] + 1)
+209   	move R[27] <- *(TR + 1)
+210   	call *(R[29] + 0)
+164   42:
+165   	push R[27]
+166   	push *(R[28] + 0)
+167   	push *(R[28] + 1)
+168   43:
+169   pat_vid45:
+170   	move R[25] <- *(BP + 0)
+171   	move R[25] <- *(R[25] + 0)
+172   	jmpneqstr &44, (R[25], "Nil")
+173   46:
+174   	malloc R[29] <- 1
+175   	move (R[29] + 0) <- "Nil"
+176   	push R[29]
+177   	move AX <- R[29]
+178   	pop R[11]
+179   	pop R[11]
+180   	pop R[11]
+181   	pop R[11]
+182   	return
+211   	push AX
+212   	move R[29] <- *(BP + 1)
+213   	move R[28] <- *(R[29] + 1)
+214   	move R[27] <- *(BP + 3)
+215   	call *(R[29] + 0)
+16   4:
+17   	push R[27]
+18   	push *(R[28] + 0)
+19   5:
+20   pat_vid7:
+21   	move R[25] <- *(BP + 0)
+22   	move R[25] <- *(R[25] + 0)
+23   	jmpneqstr &6, (R[25], "Nil")
+24   8:
+25   	malloc R[29] <- 2
+26   	move (R[29] + 0) <- &9
+27   	push R[29]
+28   	jump &17
+63   17:
+64   	move AX <- *(BP + 2)
+65   	pop R[11]
+66   	pop R[11]
+67   	pop R[11]
+68   	return
+216   	push AX
+217   58:
+218   	move TR <- *(BP + 0)
+219   	move TR <- *(TR + 1)
+220   	move AX <- *(TR + 0)
+221   	move R[29] <- *(BP + 4)
+222   	move R[28] <- *(R[29] + 1)
+223   	move R[27] <- *(TR + 0)
+224   	call *(R[29] + 0)
+29   9:
+30   	push R[27]
+31   10:
+32   pat_var12:
+33   13:
+34   14:
+35   	malloc R[29] <- 2
+36   	move (R[29] + 1) <- "Cons"
+37   	move (R[29] + 0) <- &conf_func
+38   	push R[29]
+39   	move AX <- R[29]
+40   15:
+41   15:
+42   	move AX <- *(BP + 0)
+43   15:
+44   	malloc R[29] <- 1
+45   	move (R[29] + 0) <- "Nil"
+46   	push R[29]
+47   	move AX <- R[29]
+48   	malloc AX <- 2
+49   	move (AX + 0) <- *(BP + 0)
+50   	move (AX + 1) <- *(BP + 2)
+51   	push AX
+52   	move R[29] <- *(BP + 1)
+53   	move R[28] <- *(R[29] + 1)
+54   	move R[27] <- *(BP + 3)
+55   	call *(R[29] + 0)
+0   conf_func:
+1   	malloc AX <- 2
+2   	move (AX + 1) <- R[27]
+3   	move (AX + 0) <- R[28]
+4   	return
+56   	push AX
+57   	pop R[11]
+58   	pop R[11]
+59   	pop R[11]
+60   	pop R[11]
+61   	pop R[11]
+62   	return
+225   	push AX
+226   	pop R[11]
+227   	pop R[11]
+228   	pop R[11]
+229   	pop R[11]
+230   	pop R[11]
+231   	pop R[11]
+232   	return
+211   	push AX
+212   	move R[29] <- *(BP + 1)
+213   	move R[28] <- *(R[29] + 1)
+214   	move R[27] <- *(BP + 3)
+215   	call *(R[29] + 0)
+16   4:
+17   	push R[27]
+18   	push *(R[28] + 0)
+19   5:
+20   pat_vid7:
+21   	move R[25] <- *(BP + 0)
+22   	move R[25] <- *(R[25] + 0)
+23   	jmpneqstr &6, (R[25], "Nil")
+69   6:
+70   pat_vidp19:
+71   	move R[25] <- *(BP + 0)
+72   	move R[25] <- *(R[25] + 0)
+73   	jmpneqstr &when_error, (R[25], "Cons")
+74   pat_pair20:
+75   	move TR <- *(BP + 0)
+76   pat_var21:
+77   	move TR <- *(BP + 0)
+78   	move TR <- *(TR + 1)
+79   pat_var22:
+80   	move TR <- *(BP + 0)
+81   	move TR <- *(TR + 1)
+82   23:
+83   	malloc R[29] <- 2
+84   	move (R[29] + 0) <- &24
+85   	push R[29]
+86   	malloc (R[29] + 1) <- 3
+87   	move R[28] <- *(R[29] + 1)
+88   	move (R[28] + 0) <- *(TR + 0)
+89   	move (R[28] + 1) <- *(BP + 1)
+90   	move (R[28] + 2) <- *(TR + 1)
+91   	jump &36
+146   36:
+147   	move AX <- *(BP + 2)
+148   	pop R[11]
+149   	pop R[11]
+150   	pop R[11]
+151   	return
+216   	push AX
+217   58:
+218   	move TR <- *(BP + 0)
+219   	move TR <- *(TR + 1)
+220   	move AX <- *(TR + 0)
+221   	move R[29] <- *(BP + 4)
+222   	move R[28] <- *(R[29] + 1)
+223   	move R[27] <- *(TR + 0)
+224   	call *(R[29] + 0)
+92   24:
+93   	push R[27]
+94   	push *(R[28] + 0)
+95   	push *(R[28] + 1)
+96   	push *(R[28] + 2)
+97   25:
+98   pat_var27:
+99   28:
+100   29:
+101   	malloc R[29] <- 2
+102   	move (R[29] + 1) <- "Cons"
+103   	move (R[29] + 0) <- &conf_func
+104   	push R[29]
+105   	move AX <- R[29]
+106   30:
+107   30:
+108   	move AX <- *(BP + 1)
+109   30:
+110   31:
+111   32:
+112   	move AX <- *(BP + 2)
+113   33:
+114   	move AX <- *(BP + 3)
+115   	move R[29] <- *(BP + 2)
+116   	move R[28] <- *(R[29] + 1)
+117   	move R[27] <- *(BP + 3)
+118   	call *(R[29] + 0)
+16   4:
+17   	push R[27]
+18   	push *(R[28] + 0)
+19   5:
+20   pat_vid7:
+21   	move R[25] <- *(BP + 0)
+22   	move R[25] <- *(R[25] + 0)
+23   	jmpneqstr &6, (R[25], "Nil")
+24   8:
+25   	malloc R[29] <- 2
+26   	move (R[29] + 0) <- &9
+27   	push R[29]
+28   	jump &17
+63   17:
+64   	move AX <- *(BP + 2)
+65   	pop R[11]
+66   	pop R[11]
+67   	pop R[11]
+68   	return
+119   	push AX
+120   34:
+121   	move AX <- *(BP + 0)
+122   	move R[29] <- *(BP + 5)
+123   	move R[28] <- *(R[29] + 1)
+124   	move R[27] <- *(BP + 0)
+125   	call *(R[29] + 0)
+29   9:
+30   	push R[27]
+31   10:
+32   pat_var12:
+33   13:
+34   14:
+35   	malloc R[29] <- 2
+36   	move (R[29] + 1) <- "Cons"
+37   	move (R[29] + 0) <- &conf_func
+38   	push R[29]
+39   	move AX <- R[29]
+40   15:
+41   15:
+42   	move AX <- *(BP + 0)
+43   15:
+44   	malloc R[29] <- 1
+45   	move (R[29] + 0) <- "Nil"
+46   	push R[29]
+47   	move AX <- R[29]
+48   	malloc AX <- 2
+49   	move (AX + 0) <- *(BP + 0)
+50   	move (AX + 1) <- *(BP + 2)
+51   	push AX
+52   	move R[29] <- *(BP + 1)
+53   	move R[28] <- *(R[29] + 1)
+54   	move R[27] <- *(BP + 3)
+55   	call *(R[29] + 0)
+0   conf_func:
+1   	malloc AX <- 2
+2   	move (AX + 1) <- R[27]
+3   	move (AX + 0) <- R[28]
+4   	return
+56   	push AX
+57   	pop R[11]
+58   	pop R[11]
+59   	pop R[11]
+60   	pop R[11]
+61   	pop R[11]
+62   	return
+126   	push AX
+127   	malloc AX <- 2
+128   	move (AX + 0) <- *(BP + 1)
+129   	move (AX + 1) <- *(BP + 6)
+130   	push AX
+131   	move R[29] <- *(BP + 4)
+132   	move R[28] <- *(R[29] + 1)
+133   	move R[27] <- *(BP + 7)
+134   	call *(R[29] + 0)
+0   conf_func:
+1   	malloc AX <- 2
+2   	move (AX + 1) <- R[27]
+3   	move (AX + 0) <- R[28]
+4   	return
+135   	push AX
+136   	pop R[11]
+137   	pop R[11]
+138   	pop R[11]
+139   	pop R[11]
+140   	pop R[11]
+141   	pop R[11]
+142   	pop R[11]
+143   	pop R[11]
+144   	pop R[11]
+145   	return
+225   	push AX
+226   	pop R[11]
+227   	pop R[11]
+228   	pop R[11]
+229   	pop R[11]
+230   	pop R[11]
+231   	pop R[11]
+232   	return
+293   	push AX
+294   	halt AX
+
+Stack(12) = [0] = &Heap_0/[1] = &Heap_2/[2] = &Heap_4/[3] = &Heap_5/[4] = &Heap_6/[5] = &Heap_7/[6] = &Heap_8/[7] = &Heap_9/[8] = &Heap_10/[9] = &Heap_11/[10] = &Heap_12/[11] = &Heap_28/
+
+&Heap_28 = [0] = "Cons" [1] = &Heap_27
+&Heap_27 = [0] = &Heap_7 [1] = &Heap_26
+&Heap_26 = [0] = "Cons" [1] = &Heap_25
+&Heap_25 = [0] = &Heap_5 [1] = &Heap_24
+&Heap_24 = [0] = "Nil"
+&Heap_23 = [0] = &conf_func [1] = "Cons"
+&Heap_22 = [0] = &9 [1] = 0
+&Heap_21 = [0] = &conf_func [1] = "Cons"
+&Heap_20 = [0] = &Heap_7 [1] = &Heap_0 [2] = &Heap_16
+&Heap_19 = [0] = &24 [1] = &Heap_20
+&Heap_18 = [0] = "Cons" [1] = &Heap_17
+&Heap_17 = [0] = &Heap_7 [1] = &Heap_16
+&Heap_16 = [0] = "Nil"
+&Heap_15 = [0] = &conf_func [1] = "Cons"
+&Heap_14 = [0] = &9 [1] = 0
+&Heap_13 = [0] = "Nil"
+&Heap_12 = [0] = "Cons" [1] = &Heap_11
+&Heap_11 = [0] = &Heap_5 [1] = &Heap_10
+&Heap_10 = [0] = "Cons" [1] = &Heap_9
+&Heap_9 = [0] = &Heap_7 [1] = &Heap_8
+&Heap_8 = [0] = "Nil"
+&Heap_7 = [0] = 2
+&Heap_6 = [0] = &conf_func [1] = "Cons"
+&Heap_5 = [0] = 1
+&Heap_4 = [0] = &conf_func [1] = "Cons"
+&Heap_3 = [0] = &Heap_0 [1] = &Heap_2
+&Heap_2 = [0] = &42 [1] = &Heap_3
+&Heap_1 = [0] = &Heap_0
+&Heap_0 = [0] = &4 [1] = &Heap_1
+
+Execution statistics
+	code size = 225
+	max stack = 33
+	max heap = 52
+	instructions executed = 335
+	memory read = 221
+	memory write = 134
+	register read = 342
+	register write = 342
+Total time cost = 7919
+Total memory cost = 310
+
+Normal termination
+	Result = HEAP_&28: [|"Cons"||HEAP_&27: [|HEAP_&7: [|2|]||HEAP_&26: [|"Cons"||HEAP_&25: [|HEAP_&5: [|1|]||HEAP_&24: [|"Nil"|]|]|]|]|]

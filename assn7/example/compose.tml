@@ -1,0 +1,8 @@
+val compose = 
+  (fn f => fn g => fn x => g (f x));
+
+val f1 = (fn x => x + 1);
+val f2 = (fn x => x - 1);
+val f3 = (fn 0 => true | _ => false);
+
+(compose f1 f2 0, compose f1 f3 0);;

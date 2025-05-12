@@ -1,0 +1,5 @@
+val rec fib = 
+  fn (0, (n, n')) => n
+   | (k, (n, n')) => fib (k-1, (n', n+n'));
+
+fib (5, (1, 1));;
