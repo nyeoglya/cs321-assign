@@ -59,14 +59,14 @@ let rec loc2str l = match l with
 
 (* rvalue2loc : Mach.rvalue -> loc *)
 let rvalue2loc rv = match rv with
-  | INT int -> L_INT int
-  | BOOL bool -> L_BOOL bool
+  | INT i -> L_INT i
+  | BOOL b -> L_BOOL b
   | UNIT -> L_UNIT
-  | STR string -> L_STR string
+  | STR s -> L_STR s
   | ADDR a -> L_ADDR a
   | REG r -> L_REG r
-  | REFADDR (a, int) -> L_DREF (L_ADDR a, int)
-  | REFREG (r, int) -> L_DREF (L_REG r, int)
+  | REFADDR (a, i) -> L_DREF (L_ADDR a, i)
+  | REFREG (r, i) -> L_DREF (L_REG r, i)
 
 (*
  * Generate code for Abstract Machine MACH 
@@ -137,7 +137,8 @@ let rec pat2code ls lf lo p = match p with
       let (co, rv) = loc2rvalue lo in (*해당 위치에 있는 rvalue를 가져온다*)
       let (aco, al) = ([], lo) (*계속 고민해봤는데 이게 왜 잘 작동하는지 아직도 모르겠다.*)
       (*( match rv with (*그 rvalue를 분석하는데.*)
-          | REFADDR _ | REFREG _ -> (*만약 rvalue가 reference라면*)
+          | REFADDR r
+          | REFREG r -> (*만약 rvalue가 reference라면*)
             ([ (*매칭된 값을 추적하기 위해 스택에 rv를 새로이 넣고 그걸 push한다.*)
               (*그러나, 이걸로 인해 sloc 값이 이상하게 변했고, 이로 인해 환경이 잘못되었다.*)
               (*ADD (LREG r17, REG r17, INT 1);*) (*이 새끼 때문에 다 꼬인거였다.*)
@@ -192,9 +193,6 @@ and mlfreevar2 (b: Mono.avid list) (ml) : Mono.avid list = match ml with
       let filtered = List.filter (fun x -> not (List.mem x bpy)) efv
     in filtered @ (mlfreevar2 b ml')
 let mlfreevar (ml) : Mono.avid list = mlfreevar2 [] ml
-
-let ey2e ey = match ey with
-  | EXPTY (e, t) -> e
 
 (* exp2code : venv -> Mach.label -> Mono.exp -> Mach.code * Mach.rvalue *)
 let rec exp2code (en: venv) (ls: Mach.label) (e: Mono.exp) : Mach.code * Mach.rvalue = match e with
@@ -480,9 +478,13 @@ let ecpco = [ (*예외 발생 코드*)
 let program2code p = match p with
   | (dl, EXPTY (e, t)) ->
       let dlc, dlen = dl2code dl venv0 in (*dlc: dlist code, dlen: dlist env. 각 선언 목록을 코드로 바꾸고 그것들을 일렬로 나열한다*)
-      let eco, rv = exp2code dlen (labelNew ()) e (*eco: exp code, rv: rvalue. 표현식을 코드로 바꾼다. 해당 코드를 실행했을 때의 결과를 rvalue로 반환한다.*)
-    in cofco @ ecpco @ ([LABEL start_label] @ dlc @ eco @ [ (*CONF 관리 코드 -> 예외 발생 코드 -> 시작점 -> 변수 정의하는 코드(맨 앞에 넣어서 코드가 bound되게 한다) -> 메인 코드 & 정지 코드*)
-      HALT ((*REFREG (ax, 0)*)REG ax); (*모든 값이 한번 heap으로 감싸져서 포인터로서 관리되기 때문(숫자 2를 예로 들면, 포인터를 만듦으로서 2를 가리킬 것으로 기대되는 포인터를 관리한다. 실제로 아직은 2가 아니라 함수이더라도 언젠가는 2가 될 것이다??????)에 마지막에 딱 1번 그 포인터를 벗겨야 한다.*)
-    ]) (*TODO: HALT 원상복구*)
-(*TODO(이게 마지막): 여기다가 t로 타입 매칭을 해서 페어나 CONF, 함수는 그냥 REG, 나머지는 REFREG로 만들어버리기*)
+      let eco, rv = exp2code dlen (labelNew ()) e in (*eco: exp code, rv: rvalue. 표현식을 코드로 바꾼다. 해당 코드를 실행했을 때의 결과를 rvalue로 반환한다.*)
+      let hco = (
+        match t with
+          | T_INT
+          | T_BOOL
+          | T_UNIT -> [HALT (REFREG (ax, 0))] (*모든 값이 한번 heap으로 감싸져서 포인터로서 관리되기 때문(숫자 2를 예로 들면, 포인터를 만듦으로서 2를 가리킬 것으로 기대되는 포인터를 관리한다. 실제로 아직은 2가 아니라 함수이더라도 언젠가는 2가 될 것이다??????)에 마지막에 딱 1번 그 포인터를 벗겨야 한다.*)
+          | _ -> [HALT (REG ax)]
+      )
+    in cofco @ ecpco @ [LABEL start_label] @ dlc @ eco @ hco (*CONF 관리 코드 -> 예외 발생 코드 -> 시작점 -> 변수 정의하는 코드(맨 앞에 넣어서 코드가 bound되게 한다) -> 메인 코드 & 정지 코드*)
 (*값을 포인터로 감싸는 건 ㅈ같은 생각이었던 것 같다. 이 자식 때문에 안생겨도 될 문제가 몇개나 생겼는지 모르겠다.*)
