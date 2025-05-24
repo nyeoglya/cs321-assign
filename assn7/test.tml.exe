@@ -8,108 +8,291 @@ when_error:
 	exception
 _Start_CSE_321_HW7_:
 1:
-	malloc R[29] <- 2
-	move (R[29] + 0) <- &2
-	push R[29]
-	jump &26
 2:
-	push R[27]
+	malloc R[29] <- 2
+	move (R[29] + 0) <- &3
+	push R[29]
+	jump &23
 3:
-pat_var5:
-6:
-	malloc R[29] <- 2
-	move (R[29] + 0) <- &7
-	push R[29]
-	malloc (R[29] + 1) <- 1
-	move R[28] <- *(R[29] + 1)
-	move (R[28] + 0) <- *(BP + 0)
-	jump &24
-7:
 	push R[27]
-	push *(R[28] + 0)
-8:
-pat_var10:
-11:
-	malloc R[29] <- 2
-	move (R[29] + 0) <- &12
-	push R[29]
-	malloc (R[29] + 1) <- 2
-	move R[28] <- *(R[29] + 1)
-	move (R[28] + 0) <- *(BP + 0)
-	move (R[28] + 1) <- *(BP + 1)
-	jump &22
-12:
-	push R[27]
-	push *(R[28] + 0)
-	push *(R[28] + 1)
-13:
-pat_var15:
+4:
+pat_pair6:
+pat_pair7:
+	move TR <- *(BP + 0)
+pat_var8:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 0)
+pat_var9:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 0)
+pat_pair10:
+	move TR <- *(BP + 0)
+pat_wild11:
+pat_pair12:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+pat_var13:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+	move TR <- *(TR + 1)
+pat_var14:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+	move TR <- *(TR + 1)
+15:
 16:
 17:
-	move AX <- *(BP + 1)
 18:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 0)
+	move AX <- *(TR + 0)
 19:
-	move AX <- *(BP + 2)
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+	move TR <- *(TR + 1)
+	move AX <- *(TR + 0)
+	move R[21] <- *(TR + 0)
+	move R[22] <- *(TR + 0)
+	mul AX <- (*(R[21] + 0), *(R[22] + 0))
+	malloc R[29] <- 1
+	move (R[29] + 0) <- AX
+	push R[29]
+	move AX <- R[29]
 20:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 0)
+	move AX <- *(TR + 1)
+	move R[21] <- *(BP + 1)
+	move R[22] <- *(TR + 1)
+	add AX <- (*(R[21] + 0), *(R[22] + 0))
+	malloc R[29] <- 1
+	move (R[29] + 0) <- AX
+	push R[29]
+	move AX <- R[29]
+21:
+	move TR <- *(BP + 0)
+	move TR <- *(TR + 1)
+	move TR <- *(TR + 1)
+	move AX <- *(TR + 1)
+	move R[21] <- *(BP + 2)
+	move R[22] <- *(TR + 1)
+	sub AX <- (*(R[21] + 0), *(R[22] + 0))
+	malloc R[29] <- 1
+	move (R[29] + 0) <- AX
+	push R[29]
+	move AX <- R[29]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	pop R[11]
+	return
+23:
 	move AX <- *(BP + 0)
-	move R[29] <- *(BP + 2)
-	move R[28] <- *(R[29] + 1)
-	move R[27] <- *(BP + 0)
-	call *(R[29] + 0)
-	push AX
-	move R[29] <- *(BP + 1)
-	move R[28] <- *(R[29] + 1)
-	move R[27] <- *(BP + 3)
-	call *(R[29] + 0)
-	push AX
-	pop R[11]
-	pop R[11]
-	pop R[11]
-	pop R[11]
-	pop R[11]
-	return
-22:
-	move AX <- *(BP + 2)
-	pop R[11]
-	pop R[11]
-	pop R[11]
-	return
 24:
-	move AX <- *(BP + 1)
-	pop R[11]
-	pop R[11]
-	return
-26:
-	move AX <- *(BP + 0)
-	halt AX
+24:
+24:
+	malloc AX <- 1
+	move (AX + 0) <- 3
+	push AX
+24:
+	malloc AX <- 1
+	move (AX + 0) <- 5
+	push AX
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 1)
+	move (AX + 1) <- *(BP + 2)
+	push AX
+24:
+24:
+	malloc AX <- 1
+	move (AX + 0) <- 6
+	push AX
+24:
+24:
+	malloc AX <- 1
+	move (AX + 0) <- 2
+	push AX
+24:
+	malloc AX <- 1
+	move (AX + 0) <- 4
+	push AX
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 5)
+	move (AX + 1) <- *(BP + 6)
+	push AX
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 4)
+	move (AX + 1) <- *(BP + 7)
+	push AX
+	malloc AX <- 2
+	move (AX + 0) <- *(BP + 3)
+	move (AX + 1) <- *(BP + 8)
+	push AX
+	move R[29] <- *(BP + 0)
+	move R[28] <- *(R[29] + 1)
+	move R[27] <- *(BP + 9)
+	call *(R[29] + 0)
+	push AX
+	halt *(AX + 0)
 
 
 Execution begins at 7:
 7   _Start_CSE_321_HW7_:
 8   1:
-9   	malloc R[29] <- 2
-10   	move (R[29] + 0) <- &2
-11   	push R[29]
-12   	jump &26
-80   26:
-81   	move AX <- *(BP + 0)
-82   	halt AX
+9   2:
+10   	malloc R[29] <- 2
+11   	move (R[29] + 0) <- &3
+12   	push R[29]
+13   	jump &23
+87   23:
+88   	move AX <- *(BP + 0)
+89   24:
+90   24:
+91   24:
+92   	malloc AX <- 1
+93   	move (AX + 0) <- 3
+94   	push AX
+95   24:
+96   	malloc AX <- 1
+97   	move (AX + 0) <- 5
+98   	push AX
+99   	malloc AX <- 2
+100   	move (AX + 0) <- *(BP + 1)
+101   	move (AX + 1) <- *(BP + 2)
+102   	push AX
+103   24:
+104   24:
+105   	malloc AX <- 1
+106   	move (AX + 0) <- 6
+107   	push AX
+108   24:
+109   24:
+110   	malloc AX <- 1
+111   	move (AX + 0) <- 2
+112   	push AX
+113   24:
+114   	malloc AX <- 1
+115   	move (AX + 0) <- 4
+116   	push AX
+117   	malloc AX <- 2
+118   	move (AX + 0) <- *(BP + 5)
+119   	move (AX + 1) <- *(BP + 6)
+120   	push AX
+121   	malloc AX <- 2
+122   	move (AX + 0) <- *(BP + 4)
+123   	move (AX + 1) <- *(BP + 7)
+124   	push AX
+125   	malloc AX <- 2
+126   	move (AX + 0) <- *(BP + 3)
+127   	move (AX + 1) <- *(BP + 8)
+128   	push AX
+129   	move R[29] <- *(BP + 0)
+130   	move R[28] <- *(R[29] + 1)
+131   	move R[27] <- *(BP + 9)
+132   	call *(R[29] + 0)
+14   3:
+15   	push R[27]
+16   4:
+17   pat_pair6:
+18   pat_pair7:
+19   	move TR <- *(BP + 0)
+20   pat_var8:
+21   	move TR <- *(BP + 0)
+22   	move TR <- *(TR + 0)
+23   pat_var9:
+24   	move TR <- *(BP + 0)
+25   	move TR <- *(TR + 0)
+26   pat_pair10:
+27   	move TR <- *(BP + 0)
+28   pat_wild11:
+29   pat_pair12:
+30   	move TR <- *(BP + 0)
+31   	move TR <- *(TR + 1)
+32   pat_var13:
+33   	move TR <- *(BP + 0)
+34   	move TR <- *(TR + 1)
+35   	move TR <- *(TR + 1)
+36   pat_var14:
+37   	move TR <- *(BP + 0)
+38   	move TR <- *(TR + 1)
+39   	move TR <- *(TR + 1)
+40   15:
+41   16:
+42   17:
+43   18:
+44   	move TR <- *(BP + 0)
+45   	move TR <- *(TR + 0)
+46   	move AX <- *(TR + 0)
+47   19:
+48   	move TR <- *(BP + 0)
+49   	move TR <- *(TR + 1)
+50   	move TR <- *(TR + 1)
+51   	move AX <- *(TR + 0)
+52   	move R[21] <- *(TR + 0)
+53   	move R[22] <- *(TR + 0)
+54   	mul AX <- (*(R[21] + 0), *(R[22] + 0))
+55   	malloc R[29] <- 1
+56   	move (R[29] + 0) <- AX
+57   	push R[29]
+58   	move AX <- R[29]
+59   20:
+60   	move TR <- *(BP + 0)
+61   	move TR <- *(TR + 0)
+62   	move AX <- *(TR + 1)
+63   	move R[21] <- *(BP + 1)
+64   	move R[22] <- *(TR + 1)
+65   	add AX <- (*(R[21] + 0), *(R[22] + 0))
+66   	malloc R[29] <- 1
+67   	move (R[29] + 0) <- AX
+68   	push R[29]
+69   	move AX <- R[29]
+70   21:
+71   	move TR <- *(BP + 0)
+72   	move TR <- *(TR + 1)
+73   	move TR <- *(TR + 1)
+74   	move AX <- *(TR + 1)
+75   	move R[21] <- *(BP + 2)
+76   	move R[22] <- *(TR + 1)
+77   	sub AX <- (*(R[21] + 0), *(R[22] + 0))
+78   	malloc R[29] <- 1
+79   	move (R[29] + 0) <- AX
+80   	push R[29]
+81   	move AX <- R[29]
+82   	pop R[11]
+83   	pop R[11]
+84   	pop R[11]
+85   	pop R[11]
+86   	return
+133   	push AX
+134   	halt *(AX + 0)
 
-Stack(1) = [0] = &Heap_0/
+Stack(11) = [0] = &Heap_0/[1] = &Heap_1/[2] = &Heap_2/[3] = &Heap_3/[4] = &Heap_4/[5] = &Heap_5/[6] = &Heap_6/[7] = &Heap_7/[8] = &Heap_8/[9] = &Heap_9/[10] = &Heap_12/
 
-&Heap_0 = [0] = &2 [1] = 0
+&Heap_12 = [0] = 5
+&Heap_11 = [0] = 9
+&Heap_10 = [0] = 4
+&Heap_9 = [0] = &Heap_3 [1] = &Heap_8
+&Heap_8 = [0] = &Heap_4 [1] = &Heap_7
+&Heap_7 = [0] = &Heap_5 [1] = &Heap_6
+&Heap_6 = [0] = 4
+&Heap_5 = [0] = 2
+&Heap_4 = [0] = 6
+&Heap_3 = [0] = &Heap_1 [1] = &Heap_2
+&Heap_2 = [0] = 5
+&Heap_1 = [0] = 3
+&Heap_0 = [0] = &3 [1] = 0
 
 Execution statistics
-	code size = 60
-	max stack = 0
-	max heap = 2
-	instructions executed = 6
-	memory read = 1
-	memory write = 2
-	register read = 4
-	register write = 3
-Total time cost = 103
-Total memory cost = 62
+	code size = 102
+	max stack = 15
+	max heap = 18
+	instructions executed = 97
+	memory read = 60
+	memory write = 34
+	register read = 94
+	register write = 84
+Total time cost = 2185
+Total memory cost = 135
 
 Normal termination
-	Result = HEAP_&0: [|LABEL_2||0|]
+	Result = 5

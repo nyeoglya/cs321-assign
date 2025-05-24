@@ -387,8 +387,8 @@ let rec exp2code (en: venv) (ls: Mach.label) (e: Mono.exp) : Mach.code * Mach.rv
         PUSH (REG ax); (*heap을 추적하기 위해 stack에 해당 heap을 넣는다. stack은 sloc에 의해 추적되고 있음을 명심하자.*)
       ]
     in ([LABEL ls] @ lco @ rco @ co, REFREG (bp, SLoc.get sloc))
-  | E_LET (de, EXPTY (e, t)) -> (*TODO: let이 올바른 코드인지 확인하기*)
-      let co, en = dec2code en (labelNew ()) de
+  | E_LET (de, EXPTY (e, t)) -> (*TODO: let이 올바른 코드인지 확인하기. 아 신발 let이 틀린 코드였음;;;*)
+      let co, en = dec2code en (labelNew ()) de (*어? 여기 코드를 왜 반환을 안했지?????? 아 이게 틀렸구나....*)
     in exp2code en ls e
   | _ -> (code0, UNIT)
 
