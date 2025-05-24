@@ -1,0 +1,30 @@
+fjava.cmo :
+fjava.cmx :
+hw9.cmo : \
+    loop.cmo
+hw9.cmx : \
+    loop.cmx
+loop.cmo : \
+    print.cmo \
+    opal.cmo \
+    fjava.cmo
+loop.cmx : \
+    print.cmx \
+    opal.cmx \
+    fjava.cmx
+opal.cmo : \
+    fjava.cmo
+opal.cmx : \
+    fjava.cmx
+print.cmo : \
+    fjava.cmo
+print.cmx : \
+    fjava.cmx
+typingEval.cmo : \
+    fjava.cmo \
+    typingEval.cmi
+typingEval.cmx : \
+    fjava.cmx \
+    typingEval.cmi
+typingEval.cmi : \
+    fjava.cmo

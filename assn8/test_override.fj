@@ -1,0 +1,22 @@
+class Exp extends Object {
+  Exp() { super(); }
+  Exp eval () { return this; }
+  Exp applyto (Exp e) { return this; }
+}
+
+class App extends Exp {
+  Exp f; Exp a;
+  App (Exp f, Exp a) { super(); this.f=f; this.a=a; }
+  Exp eval () { return this.f.eval().applyto(this.a).eval(); }
+  Exp applyto (Exp e) { return new App(this, e); }
+}
+
+class DummyApp extends App {
+  Exp ef; Exp ea;
+  DummyApp (Exp f, Exp a, Exp ef, Exp ea) { super(f, a); this.ef=ef; this.ea=ea; }
+  Exp eval () { return this.f.eval().applyto(this.a).eval(); }
+  App applyto (App e) { return new DummyApp(this, e); }
+}
+
+new DummyApp(new Exp(), new Exp(), new Exp(), new Exp())
+;

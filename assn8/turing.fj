@@ -1,0 +1,43 @@
+class Exp extends Object {
+  Exp() { super(); }
+  Exp eval () { return this; }
+  Exp applyto (Exp e) { return this; }
+}
+
+class App extends Exp {
+  Exp f; Exp a;
+  App (Exp f, Exp a) { super(); this.f=f; this.a=a; }
+  Exp eval () { return this.f.eval().applyto(this.a).eval(); }
+  Exp applyto (Exp e) { return new App(this, e); }
+}
+
+class K extends Exp {
+  K () { super(); }
+  Exp applyto (Exp e) { return new KM(e); }
+}
+
+class KM extends Exp {
+  Exp m;
+  KM (Exp m) { super(); this.m=m; }
+  Exp applyto (Exp e) { return this.m; }
+}
+
+class S extends Exp {
+  S () { super(); }
+  Exp applyto (Exp e) { return new SM(e); }
+}
+
+class SM extends Exp {
+  Exp m;
+  SM (Exp m) { super(); this.m=m; }
+  Exp applyto (Exp e) { return new SMN(this.m,e); }
+}
+
+class SMN extends Exp {
+  Exp m; Exp n;
+  SMN (Exp m, Exp n) { super(); this.m=m; this.n=n; }
+  Exp applyto (Exp e) { return new App(new App(this.m,e), new App(this.n,e)); }
+}
+
+(new App(new App(new App(new S(),new K()),new K()), new App(new App(new S(),new K()),new K()))).eval()
+;

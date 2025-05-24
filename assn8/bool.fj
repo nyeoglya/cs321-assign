@@ -1,0 +1,79 @@
+class Bool extends Object {
+    Bool() { super(); }
+    Object val(Object t, Object f) {
+        return this;
+        }
+    }
+
+class True extends Bool {
+    True () { super(); }
+    Object val(Object t, Object f) {
+        return t;
+        }
+    }
+
+class False extends Bool {
+    False () { super(); }
+    Object val(Object t, Object f) {
+        return f;
+        }
+    }
+
+class And extends Bool {
+    Bool x; Bool y;
+    And(Bool x, Bool y) {
+        super(); this.x = x; this.y = y;
+        }
+    Object val(Object t, Object f) {
+        return this.x.val(this.y.val(t, f), f);
+        }
+    }
+
+class Or extends Bool {
+    Bool x; Bool y;
+    Or(Bool x, Bool y) {
+        super(); this.x = x; this.y = y;
+        }
+    Object val(Object t, Object f) {
+        return this.x.val(t, this.y.val(t, f));
+        }
+    }
+
+class Not extends Bool {
+    Bool x;
+    Not(Bool x) {
+        super(); this.x = x;
+        }
+    Object val(Object t, Object f) {
+        return this.x.val(f, t);
+        }
+    }
+
+class XOr extends Bool {
+    Bool x;
+    Bool y;
+    XOr(Bool x, Bool y) {
+        super(); this.x = x; this.y = y;
+        }
+    Object val(Object t, Object f) {
+        return new Or(new And(this.x, new Not(this.y)),
+                      new And(new Not(this.x), this.y)).val(t, f);
+        }
+    }
+
+class T extends Object { T() { super(); } }
+class F extends Object { F() { super(); } }
+
+class TryItOut extends Object {
+    TryItOut() { super(); }
+    Object returnsTrue() {
+        return (new Not(new False())).val(new T(), new F());
+        }
+    Object returnsTrueAlso() {
+        return (new XOr(new True(), new Or(new False(), new False()))).val(new T(), new F());
+        }
+    }
+
+(new TryItOut()).returnsTrueAlso()
+;
+
